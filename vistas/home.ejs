@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../vistas/head'); %>
+    <title>Home</title>
+</head>
+
+<body>
+
+  <!-- inicio de admin -->
+
+  <% if ( usuario==1 ) { %>
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="./home">
+          <img src="https://w7.pngwing.com/pngs/396/796/png-transparent-home-house-lia-space-button-angle-logo-stock-photography.png" alt="Logo"
+          class="d-inline-block align-text-top" width="30" height="30">
+          El usuario conectado es: <%= nombre %>
+          <a href="./cerrar" class="btn btn-danger ms-4">cerrar session</a>
+          
+        </a>
+      </div>
+    </nav>
+
+    <div class="container p-3" >
+      <div class="mt-4">
+        <a href="./agregar" class="btn btn-success"><i class="bi bi-plus-square-fill"></i> Agregar</a>      
+      </div>
+
+      <div class="row pt-5 m-4 ">
+        <% libros.forEach((curso)=> { %>
+          <div class="card text-white bg-dark mb-5 col-md-5 mt-3 m-5" style="width: 19rem;">
+            <img class="card-img-top mt-3" src="<%=curso.libro%>" alt="Card image cap" width="285" height="200">
+            <div class="card-body">
+              <h5 class="card-title">
+                <%=curso.nombre%>
+              </h5>
+            </div>
+            <div class="mb-4 m-2 mx-auto d-block">
+              <a href="./leer/<%=curso.id%>" class="btn btn-primary"><i class="bi bi-book"></i></a>
+              <a href="./editar/<%=curso.id%>" class="btn btn-warning"><i class="bi bi-pencil-fill"></i></a>
+              <a href="./eliminar/<%=curso.id%>" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a>
+            </div>
+          </div>
+          <% });%>
+      </div>
+    </div>
+    <% } %>
+      <!-- inicio de estudiante -->
+
+      <% if ( usuario==2) { %>
+          <nav class="navbar navbar-dark bg-dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="./home">
+                <img src="https://w7.pngwing.com/pngs/396/796/png-transparent-home-house-lia-space-button-angle-logo-stock-photography.png" alt="Logo"
+                class="d-inline-block align-text-top" width="30" height="30">
+                El usuario conectado es: <%= nombre %>
+                <a href="./cerrar" class="btn btn-danger ms-4">cerrar session</a>
+                
+              </a>
+            </div>
+          </nav>
+
+          <div class="container p-3">
+            <div class="row pt-5 m-4 ">
+              <% libros.forEach((curso)=> { %>
+                <div class="card text-white bg-dark mb-5 col-md-5 mt-3 m-5" style="width: 19rem;">
+                  <img class="card-img-top mt-3" src="<%=curso.libro%>" alt="Card image cap" width="285" height="200">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <%=curso.nombre%>
+                    </h5>
+                  </div>
+                  <div class="mb-4 m-2 mx-auto d-block">
+                    <a href="./leer/<%=curso.id%>" class="btn btn-primary"><i class="bi bi-book"></i> Ver</a>
+                  </div>
+                </div>
+                <% });%>
+            </div>
+          </div>
+
+        </div>
+        <% } %>
+
+          <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+
+</html>
