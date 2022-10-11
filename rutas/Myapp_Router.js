@@ -47,19 +47,21 @@ router.get("/home", (req, res) => {
 router.get("/leer/:id", (req, res) => {
     if (req.session.loggedin) {
         const id = req.params.id;
-        conexion.query("SELECT * FROM libros WHERE id = ?", [id], (error, libros) => {
-            if (error) {
-                throw error;
-            } else {
-                res.render("leer",
-                    {
-                        login: true,
-                        curso: libros[0],
-                        usuario: req.session.tipo_usuario,
-                        nombre: req.session.nombre,
-                    });
-            }
-        });
+        conexion.query(
+            "SELECT L.id,A.autor,C.categoria,L.nombre,L.libro,L.descripcion FROM libros L INNER JOIN categorias C ON L.categoria_id = C.id INNER JOIN autores A ON L.autor_id = A.id WHERE L.id = ?",
+            [id], (error, libros) => {
+                if (error) {
+                    throw error;
+                } else {
+                    res.render("leer",
+                        {
+                            login: true,
+                            curso: libros[0],
+                            usuario: req.session.tipo_usuario,
+                            nombre: req.session.nombre,
+                        });
+                }
+            });
     } else {
         return res.redirect("/myapp/home");
     }
@@ -83,38 +85,57 @@ router.get("/eliminar/:id", (req, res) => {
 
 router.get("/agregar", (req, res) => {
     if (req.session.loggedin && req.session.tipo_usuario == 1) {
-        res.render("agregar",{
-            login: true,
-            usuario: req.session.tipo_usuario,
-            nombre: req.session.nombre,
-        })
-    }else{
+        conexion.query(
+            "SELECT * FROM autores;",
+            (error, libros) => {
+                if (error) {
+                    throw error;
+                } else {
+                    res.render("agregar", {
+                        login: true,
+                        libros,
+                        usuario: req.session.tipo_usuario,
+                        nombre: req.session.nombre,
+                    });
+                }
+            }
+        );
+
+    } else {
         return res.redirect("/myapp/home");
     }
 });
 
-router.get("/editar/:id",(req,res)=>{
-    if(req.session.loggedin && req.session.tipo_usuario == 1){
-        const id=req.params.id;
-        conexion.query("SELECT * FROM libros WHERE id = ?",[id],(error,libros)=>{
-            if(error){
+function obtenerCategorias() {
+    return conexion.query(
+        "SELECT * FROM categorias;",
+        (error, categorias) => {
+
+        });
+}
+
+router.get("/editar/:id", (req, res) => {
+    if (req.session.loggedin && req.session.tipo_usuario == 1) {
+        const id = req.params.id;
+        conexion.query("SELECT * FROM libros WHERE id = ?", [id], (error, libros) => {
+            if (error) {
                 throw error;
-            }else{
-                res.render("editar",{
-                    login:true,
-                    curso:libros[0],
-                    usuario:req.session.tipo_usuario,
-                    nombre:req.session.nombre
+            } else {
+                res.render("editar", {
+                    login: true,
+                    curso: libros[0],
+                    usuario: req.session.tipo_usuario,
+                    nombre: req.session.nombre
                 });
             }
         })
-    }else{
+    } else {
         res.redirect("/myapp/home");
     }
 })
 
 router.post("/auth", miApp.auth);
-router.post("/guardar",miApp.guardar);
-router.post("/actualizar",miApp.actualizar);
+router.post("/guardar", miApp.guardar);
+router.post("/actualizar", miApp.actualizar);
 
 module.exports = router;

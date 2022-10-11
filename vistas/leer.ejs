@@ -7,35 +7,50 @@
 </head>
 
 <body>
-    <% if ( usuario==1 || usuario==2) { %>
-        <nav class="navbar navbar-dark bg-dark">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="../home">
-              <img src="https://w7.pngwing.com/pngs/396/796/png-transparent-home-house-lia-space-button-angle-logo-stock-photography.png" alt="Logo"
-              class="d-inline-block align-text-top" width="30" height="25">
-              El usuario conectado es: <%= nombre %>
-              <a href="../cerrar" class="btn btn-danger ms-4">cerrar session</a>
-              
-            </a>
-          </div>
-        </nav>
-        
-        <div class="container mt-5 ">
-          <div class="mb-4 row justify-content-center">
-            <div class="card text-white bg-dark mb-5 col-md-8 mt-3 m-5" >
-              <img src="<%=curso.libro%> " class="card-img-top mb-4 m-2 mx-auto d-block" alt="...">
-              <div class="card-body">
-                <h5 class="card-title"><%=curso.nombre%></h5>
-                <p class="card-text"><%=curso.descripcion%> </p>
-              </div>
-              <div class="mb-4 m-3 ">
-                <a href="../home" class="btn btn-primary"><i class="bi bi-arrow-90deg-left"></i></a>
-              </div>
+  <% if ( usuario==1 || usuario==2) { %>
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../home">
+          <img
+            src="https://w7.pngwing.com/pngs/396/796/png-transparent-home-house-lia-space-button-angle-logo-stock-photography.png"
+            alt="Logo" class="d-inline-block align-text-top" width="30" height="25">
+          El usuario conectado es: <%= nombre %>
+            <a href="../cerrar" class="btn btn-danger ms-4">cerrar session</a>
 
-            </div>            
+        </a>
+      </div>
+    </nav>
+
+    <div class="container mt-5 ">
+      <div class="mb-4 row justify-content-center">
+        <div class="card text-white bg-dark mb-5 col-md-8 mt-3 m-5">
+          <img src="<%=curso.libro%> " class="card-img-top mb-4 m-2 mx-auto d-block" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">
+              <%=curso.nombre%>
+            </h5>
+            <p class="card-text">
+              <%=curso.descripcion%>
+            </p>
+            </h6>
+            <div class="row">
+              <div class="col align-self-start">
+                <h6 class="card-footer text-muted text-center">Autor: <%= curso.autor %>
+                </h6>
+              </div>
+              <div class="col align-self-end">
+                <h6 class="card-footer text-muted text-center">Categoria: <%= curso.categoria %>
+              </div>
+            </div>
           </div>
+          <div class="mb-4 m-3 ">
+            <a href="../home" class="btn btn-primary"><i class="bi bi-arrow-90deg-left"></i></a>
+          </div>
+
         </div>
-        <% } %>
+      </div>
+    </div>
+    <% } %>
 
 
 
