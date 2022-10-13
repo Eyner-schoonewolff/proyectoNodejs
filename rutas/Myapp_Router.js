@@ -85,15 +85,22 @@ router.get("/eliminar/:id", (req, res) => {
 
 router.get("/agregar", (req, res) => {
     if (req.session.loggedin && req.session.tipo_usuario == 1) {
+        const consultas = [
+            "SELECT * FROM autores",
+            "SELECT * FROM categorias"
+        ];
         conexion.query(
-            "SELECT * FROM autores;",
-            (error, libros) => {
+            consultas.join(";"),
+            (error, resultados) => {
                 if (error) {
                     throw error;
                 } else {
+                    const autores = resultados[0];
+                    const categorias = resultados[1];
                     res.render("agregar", {
                         login: true,
-                        libros,
+                        autores,
+                        categorias,
                         usuario: req.session.tipo_usuario,
                         nombre: req.session.nombre,
                     });

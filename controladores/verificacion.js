@@ -37,18 +37,24 @@ exports.guardar = (req, res) => {
     const nombre = req.body.nombre;
     const libro = req.body.libro;
     const descripcion = req.body.descripcion;
+    const autor_id = req.body.autor_id;
+    const categoria_id = req.body.categoria_id;
+
+    console.log(autor_id,categoria_id);
     // if (libro.slice(libro.length - 3) == 'png') {
-        conexion.query(
-            "INSERT INTO libros SET ?",
-            { nombre: nombre, libro: libro, descripcion: descripcion },
-            (error) => {
-                if (error) {
-                    console.error(error);
-                } else {
-                    res.redirect("./");
-                }
-            });
-    } 
+    conexion.query(
+        "INSERT INTO libros SET ?",
+        {autor_id:autor_id,categoria_id:categoria_id, nombre: nombre, libro: libro, descripcion: descripcion},
+        (error) => {
+            if (error) {
+                console.error(error);
+            } else {
+                res.redirect("./");
+            }
+        });
+
+        
+}
 
 
 exports.actualizar = (req, res) => {

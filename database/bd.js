@@ -4,8 +4,8 @@ const conexion=mysql.createConnection({
     host:"localhost",
     user:"root",
     password:"",
-    database:"myApp"
-
+    database:"myApp",
+    multipleStatements: true,
 });
 
 conexion.connect((err)=>{
