@@ -40,11 +40,9 @@ exports.guardar = (req, res) => {
     const autor_id = req.body.autor_id;
     const categoria_id = req.body.categoria_id;
 
-    console.log(autor_id,categoria_id);
-    // if (libro.slice(libro.length - 3) == 'png') {
     conexion.query(
-        "INSERT INTO libros SET ?",
-        {autor_id:autor_id,categoria_id:categoria_id, nombre: nombre, libro: libro, descripcion: descripcion},
+        "INSERT INTO libros (autor_id, categoria_id, nombre, libro, descripcion) VALUES(?,?,?,?,?)",
+        [autor_id,categoria_id,nombre,libro, descripcion],
         (error) => {
             if (error) {
                 console.error(error);
@@ -52,8 +50,6 @@ exports.guardar = (req, res) => {
                 res.redirect("./");
             }
         });
-
-        
 }
 
 
@@ -62,10 +58,12 @@ exports.actualizar = (req, res) => {
     const nombre = req.body.nombre;
     const libro = req.body.libro;
     const descripcion = req.body.descripcion;
+    const autor_id = req.body.autor_id;
+    const categoria_id = req.body.categoria_id;
 
     conexion.query(
         "UPDATE libros SET ? WHERE id = ?",
-        [{ nombre: nombre, libro: libro, descripcion: descripcion }, id],
+        [{autor_id:autor_id,categoria_id:categoria_id, nombre: nombre, libro: libro, descripcion: descripcion }, id],
         (error) => {
             if (error) {
                 console.error(error);

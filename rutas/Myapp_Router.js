@@ -113,27 +113,26 @@ router.get("/agregar", (req, res) => {
     }
 });
 
-function obtenerCategorias() {
-    return conexion.query(
-        "SELECT * FROM categorias;",
-        (error, categorias) => {
-
-        });
-}
-
 router.get("/editar/:id", (req, res) => {
     if (req.session.loggedin && req.session.tipo_usuario == 1) {
         const id = req.params.id;
-        conexion.query("SELECT * FROM libros WHERE id = ?", [id], (error, libros) => {
+        conexion.query("SELECT * FROM libros WHERE id = ?; SELECT * FROM categorias; SELECT * FROM autores",[id], 
+         (error, resultados) => {
             if (error) {
                 throw error;
-            } else {
+            } else { 
+                const curso= resultados[0];
+                console.log(curso)
+                const categorias = resultados[1];
+                const autores = resultados[2];
                 res.render("editar", {
                     login: true,
-                    curso: libros[0],
+                    curso,
+                    categorias,
+                    autores,
                     usuario: req.session.tipo_usuario,
                     nombre: req.session.nombre
-                });
+                });     
             }
         })
     } else {
