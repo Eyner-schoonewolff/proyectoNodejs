@@ -117,18 +117,24 @@ router.get("/editar/:id", (req, res) => {
     if (req.session.loggedin && req.session.tipo_usuario == 1) {
         const id = req.params.id;
         const consultas=[
-            "SELECT * FROM libros WHERE id = ?",
+            "SELECT L.id,L.autor_id,A.autor,L.categoria_id,C.categoria,L.nombre,L.libro,L.descripcion FROM libros L INNER JOIN categorias C ON L.categoria_id = C.id INNER JOIN autores A ON L.autor_id = A.id WHERE L.id = ?",
+            "SELECT * FROM autores",
+            "SELECT * FROM categorias"
         ]
         conexion.query(consultas.join(";"),[id], 
          (error, resultados) => {
             if (error) {
                 throw error;
             } else { 
-                const curso= resultados[0];
-         
+                const curso= resultados[0][0];
+                const autores = resultados[1];
+                const categorias = resultados[2];
+
                 res.render("editar", {
                     login: true,
                     curso,
+                    autores,
+                    categorias,
                     usuario: req.session.tipo_usuario,
                     nombre: req.session.nombre
                 });     
