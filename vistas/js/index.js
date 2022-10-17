@@ -21,7 +21,9 @@ document.querySelector('#botonLoguin').addEventListener('click', function () {
             if (respuesta.login) {
                 window.location.href = respuesta.enlaceHome;
             } else {
-                window.location.href = respuesta.index;
+                // window.location.href = respuesta.index;
+                const alerta = document.querySelector("#Alerta_error");
+                alerta.classList.remove("d-none");
             }
         });
 });
