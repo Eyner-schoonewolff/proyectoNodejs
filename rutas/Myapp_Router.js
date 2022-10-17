@@ -116,20 +116,19 @@ router.get("/agregar", (req, res) => {
 router.get("/editar/:id", (req, res) => {
     if (req.session.loggedin && req.session.tipo_usuario == 1) {
         const id = req.params.id;
-        conexion.query("SELECT * FROM libros WHERE id = ?; SELECT * FROM categorias; SELECT * FROM autores",[id], 
+        const consultas=[
+            "SELECT * FROM libros WHERE id = ?",
+        ]
+        conexion.query(consultas.join(";"),[id], 
          (error, resultados) => {
             if (error) {
                 throw error;
             } else { 
                 const curso= resultados[0];
-                console.log(curso)
-                const categorias = resultados[1];
-                const autores = resultados[2];
+         
                 res.render("editar", {
                     login: true,
                     curso,
-                    categorias,
-                    autores,
                     usuario: req.session.tipo_usuario,
                     nombre: req.session.nombre
                 });     

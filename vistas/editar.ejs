@@ -39,22 +39,15 @@
                                     <label class="m-2" for="nombre">Autor</label>
                                     <select name="autor_id" class="form-select" aria-label="Default select example">
                                         <option selected><%= curso.autor_id %> </option>
-                                        <% autores.forEach((referencia)=>{%>
-                                            <option value="<%= referencia.id %> ">
-                                                <%= referencia.autor %>
-                                            </option>
-                                            <% });%>
+                                    
                                     </select>
                                 </div>
                                 <div class="col-6">
                                     <label class="m-2" for="Libro">Categoria</label>
                                     <select  name="categoria_id" class="form-select" aria-label="Default select example">
                                         <option selected><%= curso.categoria_id %> </option>
-                                        <% categorias.forEach((referencia)=>{%>
-                                            <option value="<%=referencia.id%> ">
-                                                <%= referencia.categoria %>
-                                            </option>
-                                            <% });%>
+
+                                   
                                     </select>
                                 </div>
                             </div>

@@ -54,6 +54,7 @@ exports.guardar = (req, res) => {
 
 
 exports.actualizar = (req, res) => {
+    console.log("entro")
     const id = req.body.id;
     const nombre = req.body.nombre;
     const libro = req.body.libro;
