@@ -10,6 +10,7 @@ exports.auth = (req, res) => {
                     req.session.loggedin = false;
                     res.json({
                         login: false,
+                        alertaUsuario:true,
                         index: '/myapp',
                     });
                 }
@@ -28,6 +29,7 @@ exports.auth = (req, res) => {
         req.session.loggedin = false;
         res.json({
             login: false,
+            loginIncorrecto:true,
             index: '/myapp'
         });
     }

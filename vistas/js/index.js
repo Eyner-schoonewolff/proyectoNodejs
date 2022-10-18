@@ -11,6 +11,7 @@ async function realizarPeticion(data) {
     );
     return await response.json();
 }
+
 document.querySelector('#botonLoguin').addEventListener('click', function () {
     data = {
         correo: document.querySelector('#correo').value,
@@ -23,7 +24,20 @@ document.querySelector('#botonLoguin').addEventListener('click', function () {
             } else {
                 // window.location.href = respuesta.index;
                 const alerta = document.querySelector("#Alerta_error");
-                alerta.classList.remove("d-none");
+                const alertaWarning = document.querySelector("#Alerta_warning");
+
+                if (respuesta.alertaUsuario) {
+                    alerta.classList.remove("d-none");
+                    alertaWarning.classList.add("d-none");
+                }
+                if (respuesta.loginIncorrecto) {
+                    alerta.classList.add("d-none");
+                    alertaWarning.classList.remove("d-none");
+                }
+                document.querySelector('#correo').value = "";
+                document.querySelector('#contraseña').value = "";
+
+
             }
         });
 });
