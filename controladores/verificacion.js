@@ -10,7 +10,7 @@ exports.auth = (req, res) => {
                     req.session.loggedin = false;
                     res.json({
                         login: false,
-                        alertaUsuario:true,
+                        alertaUsuario: true,
                         index: '/myapp',
                     });
                 }
@@ -29,48 +29,53 @@ exports.auth = (req, res) => {
         req.session.loggedin = false;
         res.json({
             login: false,
-            loginIncorrecto:true,
+            loginIncorrecto: true,
             index: '/myapp'
         });
     }
 };
 
 exports.guardar = (req, res) => {
-    const nombre = req.body.nombre;
-    const libro = req.body.libro;
-    const descripcion = req.body.descripcion;
-    const autor_id = req.body.autor_id;
-    const categoria_id = req.body.categoria_id;
+    const file = req.file.originalname;
+    if (file) {
+        const nombre = req.body.nombre;
+        const descripcion = req.body.descripcion;
+        const autor_id = req.body.autor_id;
+        const categoria_id = req.body.categoria_id;
 
-    conexion.query(
-        "INSERT INTO libros (autor_id, categoria_id, nombre, libro, descripcion) VALUES(?,?,?,?,?)",
-        [autor_id,categoria_id,nombre,libro, descripcion],
-        (error) => {
-            if (error) {
-                console.error(error);
-            } else {
-                res.redirect("./");
-            }
-        });
+        conexion.query(
+            "INSERT INTO libros (autor_id, categoria_id, nombre, libro, descripcion) VALUES(?,?,?,?,?)",
+            [autor_id, categoria_id, nombre, file, descripcion],
+            (error) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    res.redirect("./");
+                }
+            });
+    }
 }
 
 
 exports.actualizar = (req, res) => {
-    const id = req.body.id;
-    const nombre = req.body.nombre;
-    const libro = req.body.libro;
-    const descripcion = req.body.descripcion;
-    const autor_id = req.body.autor_id;
-    const categoria_id = req.body.categoria_id;
+    const file = req.file.originalname;
+    console.log(file);
+    if (file) {
+        const id = req.body.id;
+        const nombre = req.body.nombre;
+        const descripcion = req.body.descripcion;
+        const autor_id = req.body.autor_id;
+        const categoria_id = req.body.categoria_id;
 
-    conexion.query(
-        "UPDATE libros SET ? WHERE id = ?",
-        [{autor_id:autor_id,categoria_id:categoria_id, nombre: nombre, libro: libro, descripcion: descripcion }, id],
-        (error) => {
-            if (error) {
-                console.error(error);
-            } else {
-                res.redirect("./");
-            }
-        });
+        conexion.query(
+            "UPDATE libros SET ? WHERE id = ?",
+            [{ autor_id: autor_id, categoria_id: categoria_id, nombre: nombre, libro: file, descripcion: descripcion }, id],
+            (error) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    res.redirect("./");
+                }
+            });
+    }
 }

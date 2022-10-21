@@ -1,10 +1,28 @@
 const express = require("express");
 
+const multer = require('multer');
+
+const path = require('path');
+
 const router = express.Router();
 
 const conexion = require("../database/bd");
 
 const miApp = require("../controladores/verificacion");
+
+// const storage = require('../database/multer');
+
+const storage=multer.diskStorage({
+    destination:path.join(__dirname,"public/imagenes"),
+    filename:(req,file,cb)=>{
+        cb(null,file.originalname);
+    }
+})
+
+router.use(multer({
+    storage,
+    dest:path.join(__dirname,"public/imagenes")
+}).single('file'))
 
 router.get("/", (req, res) => {
     if (!req.session.loggedin) {
@@ -146,7 +164,7 @@ router.get("/editar/:id", (req, res) => {
 })
 
 router.post("/auth", miApp.auth);
-router.post("/guardar", miApp.guardar);
+router.post("/guardar",miApp.guardar);
 router.post("/actualizar", miApp.actualizar);
 
 module.exports = router;
