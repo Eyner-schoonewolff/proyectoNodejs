@@ -36,7 +36,7 @@ exports.auth = (req, res) => {
 };
 
 exports.guardar = (req, res) => {
-    const file ="/rutas/public/imagenes/"+ req.file.originalname;
+    const file = req.file.originalname;
     if (file) {
         const nombre = req.body.nombre;
         const descripcion = req.body.descripcion;
@@ -58,19 +58,33 @@ exports.guardar = (req, res) => {
 
 
 exports.actualizar = (req, res) => {
-    // const file ="/rutas/public/imagenes/"+ req.file.originalname;
-    const file = req.file.filename;
-    console.log(file);
-    if (file) {
+    const control = req.file;
+    if (control) {
         const id = req.body.id;
         const nombre = req.body.nombre;
         const descripcion = req.body.descripcion;
         const autor_id = req.body.autor_id;
         const categoria_id = req.body.categoria_id;
-
+        const file = req.file.filename;
         conexion.query(
             "UPDATE libros SET ? WHERE id = ?",
             [{ autor_id: autor_id, categoria_id: categoria_id, nombre: nombre, libro: file, descripcion: descripcion }, id],
+            (error) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    res.redirect("./");
+                }
+            });
+    } else {
+        const id = req.body.id;
+        const nombre = req.body.nombre;
+        const descripcion = req.body.descripcion;
+        const autor_id = req.body.autor_id;
+        const categoria_id = req.body.categoria_id;
+        conexion.query(
+            "UPDATE libros SET ? WHERE id = ?",
+            [{ autor_id: autor_id, categoria_id: categoria_id, nombre: nombre, descripcion: descripcion }, id],
             (error) => {
                 if (error) {
                     console.error(error);
