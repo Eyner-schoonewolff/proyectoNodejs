@@ -16,6 +16,7 @@ const passport=require("passport");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'vistas')));
 app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());

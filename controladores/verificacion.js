@@ -36,7 +36,7 @@ exports.auth = (req, res) => {
 };
 
 exports.guardar = (req, res) => {
-    const file = req.file.originalname;
+    const file ="/rutas/public/imagenes/"+ req.file.originalname;
     if (file) {
         const nombre = req.body.nombre;
         const descripcion = req.body.descripcion;
@@ -58,7 +58,8 @@ exports.guardar = (req, res) => {
 
 
 exports.actualizar = (req, res) => {
-    const file = req.file.originalname;
+    // const file ="/rutas/public/imagenes/"+ req.file.originalname;
+    const file = req.file.filename;
     console.log(file);
     if (file) {
         const id = req.body.id;

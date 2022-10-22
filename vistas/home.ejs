@@ -30,7 +30,7 @@
       <div class="row pt-5 m-4 ">
         <% libros.forEach((curso)=> { %>
           <div class="card text-white bg-dark mb-5 col-md-5 mt-3 m-5" style="width: 19rem;">
-            <img class="card-img-top mt-3" src="/rutas/public/imagenes/papelJugador2.png" alt="no pudo cargar" width="285" height="200">
+            <img class="card-img-top mt-3" src="http://localhost:8000/<%=curso.libro%>" alt="no pudo cargar" width="285" height="200">
             <div class="card-body">
               <h5 class="card-title">
                 <%=curso.nombre%>
@@ -65,7 +65,7 @@
             <div class="row pt-5 m-4 ">
               <% libros.forEach((curso)=> { %>
                 <div class="card text-white bg-dark mb-5 col-md-5 mt-3 m-5" style="width: 19rem;">
-                  <img class="card-img-top mt-3" src="<%=curso.libro%>" alt="Card image cap" width="285" height="200">
+                  <img class="card-img-top mt-3" src="http://localhost:8000/<%=curso.libro%>" alt="Card image cap" width="285" height="200">
                   <div class="card-body">
                     <h5 class="card-title">
                       <%=curso.nombre%>
